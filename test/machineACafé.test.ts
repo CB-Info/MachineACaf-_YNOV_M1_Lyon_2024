@@ -9,7 +9,7 @@ describe("MVP", () => {
         let machineACafé = MachineACaféBuilder.ParDéfaut()
 
         // QUAND on choisis le café normal
-        hardware.SimulerSélectionCafé(TypeDeCafé.NORMAL)
+        machineACafé.SimulerSélectionCafé(TypeDeCafé.NORMAL)
         machineACafé.SimulerInsertionPièce(Pièce.CinquanteCentimes)
         machineACafé.SimulerInsertionPièce(Pièce.CinquanteCentimes)
 
@@ -33,7 +33,7 @@ describe("MVP", () => {
         let machineACafé = MachineACaféBuilder.ParDéfaut()
 
         // QUAND on choisis le café normal
-        hardware.SimulerSélectionCafé(TypeDeCafé.NORMAL)
+        machineACafé.SimulerSélectionCafé(TypeDeCafé.NORMAL)
         // QUAND on insère la pièce
         machineACafé.SimulerInsertionPièce(pièce)
 
@@ -55,7 +55,7 @@ describe("MVP", () => {
         let machineACafé = MachineACaféBuilder.ParDéfaut()
 
         // QUAND on choisis le café normal
-        hardware.SimulerSélectionCafé(TypeDeCafé.NORMAL)
+        machineACafé.SimulerSélectionCafé(TypeDeCafé.NORMAL)
         // QUAND on insère la pièce
         machineACafé.SimulerInsertionPièce(pièce)
 
@@ -72,17 +72,16 @@ describe("MVP", () => {
     ])
     ("Cas café %s", (type: TypeDeCafé) => {
         // ETANT DONNE une machine a café
-        let hardware = new HardwareFake()
-        let machineACafé = new MachineACafé(hardware)
+        let machineACafé = MachineACaféBuilder.ParDéfaut()
 
         // ET que je choisis un café allongé
-        hardware.SimulerSélectionCafé(type)
+        machineACafé.SimulerSélectionCafé(type)
 
         // QUAND on insère 50cts, 1 fois
-        hardware.SimulerInsertionPièce(Pièce.CinquanteCentimes)
+        machineACafé.SimulerInsertionPièce(Pièce.CinquanteCentimes)
 
         // ALORS il a été demandé au hardware de servir un café allongé
-        expect(hardware).unCaféEstServi();
+        expect(machineACafé).unCaféEstServi();
 
         // ET le café de type allongé a été servi
         expect(machineACafé.typeDeCafé).toEqual(type);
