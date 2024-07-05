@@ -81,5 +81,8 @@ describe("MVP", () => {
 
         // ET le café de type allongé a été servi
         expect(machineACafé.typeDeCafé).toEqual(TypeDeCafé.ALLONGE);
+
+        // ET l'argent est encaissé
+        expect(machineACafé.argentEncaisséEnCentimes).toEqual(50);
     })
 })
