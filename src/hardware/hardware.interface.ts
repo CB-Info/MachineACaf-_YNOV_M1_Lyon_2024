@@ -14,6 +14,12 @@ export interface BrewerInterface {
     MakeACoffee(type: TypeDeCafé): boolean
 
     /**
+     * Enregistre un callback, qui sera appelé lors de l'insertion d'une pièce reconnue valide
+     * @param callback prend un unique paramètre où sera injecté la valeur de la pièce détectée
+     */
+    RegisterTypeOfCoffeeCallback(callback: (type: TypeDeCafé) => void): void;
+
+    /**
      * Tire une dose d'eau depuis le réservoir vers le bouilleur
      * @return True si une dose a été tirée avec succès
      * @return False si le bouilleur contenait déjà une dose d'eau
