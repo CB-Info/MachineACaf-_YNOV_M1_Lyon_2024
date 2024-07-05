@@ -1,4 +1,4 @@
 export enum TypeDeCafé {
-    NORMAL,
-    ALLONGE
+    NORMAL = "normal",
+    ALLONGE = "allongé"
 }

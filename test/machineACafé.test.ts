@@ -66,21 +66,26 @@ describe("MVP", () => {
         expect(machineACafé.argentEncaisséEnCentimes).toEqual(pièce.getMontant());
     })
 
-    test("Cas café allongé", () => {
+    test.each([
+        TypeDeCafé.NORMAL,
+        TypeDeCafé.ALLONGE
+    ])
+    ("Cas café %s", (type: TypeDeCafé) => {
         // ETANT DONNE une machine a café
         let hardware = new HardwareFake()
         let machineACafé = new MachineACafé(hardware)
 
-        // QUAND on insère 50cts, 1 fois
         // ET que je choisis un café allongé
-        hardware.SimulerSélectionCafé(TypeDeCafé.ALLONGE)
+        hardware.SimulerSélectionCafé(type)
+
+        // QUAND on insère 50cts, 1 fois
         hardware.SimulerInsertionPièce(Pièce.CinquanteCentimes)
 
         // ALORS il a été demandé au hardware de servir un café allongé
         expect(hardware).unCaféEstServi();
 
         // ET le café de type allongé a été servi
-        expect(machineACafé.typeDeCafé).toEqual(TypeDeCafé.ALLONGE);
+        expect(machineACafé.typeDeCafé).toEqual(type);
 
         // ET l'argent est encaissé
         expect(machineACafé.argentEncaisséEnCentimes).toEqual(50);
