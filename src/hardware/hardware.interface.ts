@@ -11,7 +11,7 @@ export interface BrewerInterface {
      * Si aucune dose d'eau n'était préchargée dans le bouilleur, la machine tentera d'en charger une
      * @return True si aucun problème, False si défaillance
      */
-    MakeACoffee(): boolean
+    MakeACoffee(type: TypeDeCafé): boolean
 
     /**
      * Tire une dose d'eau depuis le réservoir vers le bouilleur
