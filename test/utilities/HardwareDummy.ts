@@ -58,4 +58,7 @@ export class HardwareDummy implements HardwareFakeInterface {
     PourSugar(): boolean {
         throw new Error("Method not implemented.");
     }
+    VérifierStockEau(type: TypeDeCafé): boolean {
+        return true
+    }
 }

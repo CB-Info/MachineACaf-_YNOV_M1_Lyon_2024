@@ -27,7 +27,7 @@ export interface BrewerInterface {
      * @return False si le bouilleur contenait déjà une dose d'eau
      * @return False si aucune dose complète n'a pu être tirée
      */
-    TryPullWater(): boolean
+    TryPullWater(amount :number): boolean
 
     /**
      * Ajoute une dose de lait au mélange.
@@ -41,7 +41,7 @@ export interface BrewerInterface {
      * Si aucune dose d'eau n'était dans le bouilleur, la machine tentera d'en charger une
      * @return True si aucun problème, False si défaillance
      */
-    PourWater(): boolean
+    PourWater(amount :number): boolean
 
     /**
      * Ajoute une dose de sucre au mélange. Il est conseillé d'ajouter le sucre en premier.

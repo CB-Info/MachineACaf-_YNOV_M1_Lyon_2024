@@ -56,6 +56,7 @@ describe("MVP", () => {
 
         // QUAND on choisis le café normal
         machineACafé.SimulerSélectionCafé(TypeDeCafé.NORMAL)
+
         // QUAND on insère la pièce
         machineACafé.SimulerInsertionPièce(pièce)
 
@@ -76,6 +77,9 @@ describe("MVP", () => {
 
         // ET que je choisis un café allongé
         machineACafé.SimulerSélectionCafé(type)
+        
+        // ALORS on vérifie le stock d'eau
+        //machineACafé.VérifierStockEau(type)
 
         // QUAND on insère 50cts, 1 fois
         machineACafé.SimulerInsertionPièce(Pièce.CinquanteCentimes)
@@ -84,6 +88,32 @@ describe("MVP", () => {
         expect(machineACafé).unCaféEstServi();
 
         // ET le café de type allongé a été servi
+        expect(machineACafé.typeDeCafé).toEqual(type);
+
+        // ET l'argent est encaissé
+        expect(machineACafé.argentEncaisséEnCentimes).toEqual(50);
+    })
+
+    test.each([
+        TypeDeCafé.NORMAL,
+        TypeDeCafé.ALLONGE
+    ])
+    ("Cas café %s avec vérification de stock d'eau", (type: TypeDeCafé) => {
+        // ETANT DONNE une machine à café avec suffisamment d'eau pour un type de café
+        let machineACafé = MachineACaféBuilder.ParDéfaut()
+
+        machineACafé.avecStockEauAjusté(type);
+
+        // QUAND on choisis un type de café
+        machineACafé.SimulerSélectionCafé(type)
+
+        // ET QUAND on insère 50cts
+        machineACafé.SimulerInsertionPièce(Pièce.CinquanteCentimes)
+
+        // ALORS il a été demandé au hardware de servir le type de café sélectionné
+        expect(machineACafé).unCaféEstServi();
+
+        // ET le type de café servi correspond à la sélection
         expect(machineACafé.typeDeCafé).toEqual(type);
 
         // ET l'argent est encaissé
