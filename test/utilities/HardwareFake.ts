@@ -24,6 +24,9 @@ export class HardwareFake extends HardwareDummy {
         if (this._waterStock >= amount) {
             this._waterStock -= amount;
             return true;
+        } else if (amount == 2 && this._waterStock == 1){
+            this._waterStock -= 1
+            return true
         } else {
             return false;
         }

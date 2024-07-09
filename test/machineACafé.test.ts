@@ -127,6 +127,29 @@ describe("MVP", () => {
         expect(machineACafé.CountWaterStock()).toEqual(10 - amount)
     })
 
+    test("Cas café allongé avec 1 dose d'eau", () => {
+        // ETANT DONNE une machine à café avec 1 dose d'eau pour un café allongé
+        let machineACafé = MachineACaféBuilder.ParDéfaut()
+
+        machineACafé.avecStockEauAjusté(1);
+
+        // QUAND on choisis un café allongé
+        machineACafé.SimulerSélectionCafé(TypeDeCafé.ALLONGE)
+
+        // ET QUAND on insère 50cts
+        machineACafé.SimulerInsertionPièce(Pièce.CinquanteCentimes)
+
+        // ALORS il a été demandé au hardware de servir un café normal à la place
+        expect(machineACafé).unCaféEstServi();
+
+        // ET le type de café servi est un café normal
+        expect(machineACafé.typeDeCafé).not.toEqual(TypeDeCafé.NORMAL);
+
+        // ET l'argent est encaissé
+        expect(machineACafé.argentEncaisséEnCentimes).toEqual(50);
+        expect(machineACafé.CountWaterStock()).toEqual(1 - 1)
+    })
+
     test("Cas café quand il n'y pas d'eau", () => {
         // ETANT DONNE une machine à café avec suffisamment d'eau pour un type de café
         let machineACafé = MachineACaféBuilder.ParDéfaut()
@@ -134,6 +157,7 @@ describe("MVP", () => {
 
         // QUAND on choisis un type de café
         machineACafé.SimulerSélectionCafé(TypeDeCafé.NORMAL)
+
 
         // ET QUAND on insère 50cts
         machineACafé.SimulerInsertionPièce(Pièce.CinquanteCentimes)
