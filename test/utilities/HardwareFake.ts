@@ -6,6 +6,7 @@ import { TypeDeCafé } from "../../src/TypeDeCafé";
 export interface HardwareFakeInterface extends HardwareInterface {
     SimulerInsertionPièce(pièce: Pièce): void;
     CountInvocationsMakeACoffee(): number;
+    SimulerSélectionCafé(type: TypeDeCafé): void;
 }
 
 export class HardwareFake extends HardwareDummy {

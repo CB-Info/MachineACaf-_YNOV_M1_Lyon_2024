@@ -1,8 +1,15 @@
 import { Pièce } from "../../src/Pièce";
+import { TypeDeCafé } from "../../src/TypeDeCafé";
 import { ButtonCodes, CoinCodes} from "../../src/hardware/hardware.interface";
 import {HardwareFakeInterface} from "./HardwareFake";
 
 export class HardwareDummy implements HardwareFakeInterface {
+    SimulerSélectionCafé(type: TypeDeCafé): void {
+        throw new Error("Method not implemented.");
+    }
+    RegisterTypeOfCoffeeCallback(callback: (type: TypeDeCafé) => void): void {
+        throw new Error("Method not implemented.");
+    }
     DropCashback(coin_code: CoinCodes): boolean {
         throw new Error("Method not implemented.");
     }

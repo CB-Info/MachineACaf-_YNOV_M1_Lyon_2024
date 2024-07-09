@@ -1,3 +1,5 @@
+import { TypeDeCafé } from "../TypeDeCafé";
+
 export interface HardwareInterface
     extends ChangeMachineInterface,
         CupProviderInterface,
