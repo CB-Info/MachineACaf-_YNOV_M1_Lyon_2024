@@ -1,7 +1,6 @@
 import {MachineACafé} from "../../src/MachineACafé";
 import {Pièce} from "../../src/Pièce";
 import {HardwareFakeInterface} from "./HardwareFake";
-import {HardwareFake} from "./HardwareFake";
 import { TypeDeCafé } from "../../src/TypeDeCafé";
 
 export class MachineACaféHarness extends MachineACafé {
@@ -20,22 +19,24 @@ export class MachineACaféHarness extends MachineACafé {
         this.hardware.SimulerSélectionCafé(type)
     }
 
-    public VérifierStockEau(type: TypeDeCafé) : void{
-        this.hardware.VérifierStockEau(type)
-    }
-
-    // Configure le stock d'eau pour être suffisant pour n'importe quel type de café
-    public avecStockEauSuffisant() {
-        this.hardware.avecStockEauSuffisant();
-    }
-
     // Configure le stock d'eau ajusté selon le type  de café
-    public avecStockEauAjusté(type: TypeDeCafé) {
-        this.hardware.avecStockEauAjusté(type);
-
+    public avecStockEauAjusté(amount: number) {
+        this.hardware.avecStockEauAjusté(amount);
     }
 
     public CountInvocationsMakeACoffee() {
         return this.hardware.CountInvocationsMakeACoffee();
+    }
+
+    public CountWaterStock(): number {
+        return this.hardware.CountWaterStock();
+    }
+
+    public TryPullWater(amount: number) {
+        this.hardware.TryPullWater(amount);
+    }
+
+    public PourWater(amount: number) {
+        this.hardware.PourWater(amount);
     }
 }

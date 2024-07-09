@@ -3,23 +3,25 @@ import {HardwareFake, HardwareFakeInterface} from "./HardwareFake";
 import { TypeDeCafé } from "../../src/TypeDeCafé";
 
 export class MachineACaféBuilder {
+    private _hardware?: HardwareFakeInterface
+
     public static ParDéfaut() {
         return new MachineACaféBuilder().Build()
     }
 
     // Configure le stock d'eau pour être suffisant pour n'importe quel type de café
     public avecStockEauSuffisant() {
-        this.hardware.setWaterStock(10); // Assurez-vous que cette quantité est suffisante pour plusieurs cafés
+        this._hardware?.setWaterStock(10); // Assurez-vous que cette quantité est suffisante pour plusieurs cafés
     }
 
     // Configure le stock d'eau ajusté selon le type de café
-    public avecStockEauAjusté(type: TypeDeCafé) {
-        const waterNeeded = type === TypeDeCafé.NORMAL ? 1 : 2; // 1 dose pour NORMAL, 2 doses pour ALLONGE
-        this.hardware.setWaterStock(waterNeeded); // Configure le stock exactement pour le type de café spécifié
+    public avecStockEauAjusté(amount: number) {
+        this._hardware?.setWaterStock(amount);
     }
 
     public Build() : MachineACaféHarness {
-        let hardware: HardwareFakeInterface = new HardwareFake();
+        let hardware: HardwareFakeInterface = new HardwareFake()
+        this._hardware = hardware;
         return new MachineACaféHarness(hardware)
     }
 }

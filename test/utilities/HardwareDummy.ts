@@ -4,6 +4,18 @@ import { ButtonCodes, CoinCodes} from "../../src/hardware/hardware.interface";
 import {HardwareFakeInterface} from "./HardwareFake";
 
 export class HardwareDummy implements HardwareFakeInterface {
+    CountWaterStock(): number {
+        throw new Error("Method not implemented.");
+    }
+    setWaterStock(amount: number) {
+        throw new Error("Method not implemented.");
+    }
+    avecStockEauAjusté(amount: number): void {
+        throw new Error("Method not implemented.");
+    }
+    avecStockEauSuffisant(): void {
+        throw new Error("Method not implemented.");
+    }
     SimulerSélectionCafé(type: TypeDeCafé): void {
         throw new Error("Method not implemented.");
     }
@@ -46,13 +58,13 @@ export class HardwareDummy implements HardwareFakeInterface {
     MakeACoffee(): boolean {
         throw new Error("Method not implemented.");
     }
-    TryPullWater(): boolean {
+    TryPullWater(amount: number): boolean {
         throw new Error("Method not implemented.");
     }
     PourMilk(): boolean {
         throw new Error("Method not implemented.");
     }
-    PourWater(): boolean {
+    PourWater(amount: number): boolean {
         throw new Error("Method not implemented.");
     }
     PourSugar(): boolean {

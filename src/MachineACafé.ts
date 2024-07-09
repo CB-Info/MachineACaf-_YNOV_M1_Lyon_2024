@@ -20,38 +20,25 @@ export class MachineACafé {
 
     argentEncaisséEnCentimes: number = 0;
     typeDeCafé?: TypeDeCafé = undefined;
-    private waterStock = 10;
 
     private insérer(pièce: Pièce) {
-        if(pièce.EstInférieureA(MachineACafé.PrixDuCafé)) return
+        if (pièce.EstInférieureA(MachineACafé.PrixDuCafé)) return
         if (this.typeDeCafé == undefined) return
 
-        this._hardware.MakeACoffee(this.typeDeCafé)
-        this.argentEncaisséEnCentimes += pièce.getMontant()
+        if (this.vérificationStockEau(this.typeDeCafé)) {
+            this._hardware.MakeACoffee(this.typeDeCafé)
+            this.argentEncaisséEnCentimes += pièce.getMontant()
+        } else {
+            console.log("Impossible de préparer le café, pas assez d'eau.");
+        }
     }
 
     private sélectionDuCafé(type: TypeDeCafé) {
         this.typeDeCafé = type
     }
 
-    private vérificationStockEau(type: TypeDeCafé) {
+    private vérificationStockEau(type: TypeDeCafé): boolean {
         const waterNeeded = type === TypeDeCafé.NORMAL ? 1 : 2; // 1 dose pour un café normal, 2 pour un allongé
-        if (this.TryPullWater(waterNeeded)) {
-            if (this.PourWater(waterNeeded)) {
-                this._hardware.MakeACoffee(type);
-            } else {
-                console.log("Erreur lors de l'ajout de l'eau.");
-            }
-        } else {
-            console.log("Pas assez d'eau disponible pour préparer ce type de café.");
-        }
-    }
-
-    private TryPullWater(amount: number): boolean {
-        return this._hardware.TryPullWater(amount);
-    }
-
-    private PourWater(amount: number): boolean {
-        return this._hardware.PourWater(amount);
+        return this._hardware.TryPullWater(waterNeeded) && this._hardware.PourWater(waterNeeded);
     }
 }

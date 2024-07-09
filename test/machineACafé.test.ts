@@ -8,6 +8,8 @@ describe("MVP", () => {
         // ETANT DONNE une machine a café
         let machineACafé = MachineACaféBuilder.ParDéfaut()
 
+        machineACafé.avecStockEauAjusté(10);
+
         // QUAND on choisis le café normal
         machineACafé.SimulerSélectionCafé(TypeDeCafé.NORMAL)
         machineACafé.SimulerInsertionPièce(Pièce.CinquanteCentimes)
@@ -32,6 +34,8 @@ describe("MVP", () => {
         // ET une pièce d'une valeur inférieure 50cts
         let machineACafé = MachineACaféBuilder.ParDéfaut()
 
+        machineACafé.avecStockEauAjusté(10);
+
         // QUAND on choisis le café normal
         machineACafé.SimulerSélectionCafé(TypeDeCafé.NORMAL)
         // QUAND on insère la pièce
@@ -54,6 +58,8 @@ describe("MVP", () => {
         // ET une pièce d'une valeur supérieure à 50cts
         let machineACafé = MachineACaféBuilder.ParDéfaut()
 
+        machineACafé.avecStockEauAjusté(10);
+
         // QUAND on choisis le café normal
         machineACafé.SimulerSélectionCafé(TypeDeCafé.NORMAL)
 
@@ -75,11 +81,12 @@ describe("MVP", () => {
         // ETANT DONNE une machine a café
         let machineACafé = MachineACaféBuilder.ParDéfaut()
 
+        machineACafé.avecStockEauAjusté(10);
+
         // ET que je choisis un café allongé
         machineACafé.SimulerSélectionCafé(type)
         
         // ALORS on vérifie le stock d'eau
-        //machineACafé.VérifierStockEau(type)
 
         // QUAND on insère 50cts, 1 fois
         machineACafé.SimulerInsertionPièce(Pièce.CinquanteCentimes)
@@ -95,14 +102,14 @@ describe("MVP", () => {
     })
 
     test.each([
-        TypeDeCafé.NORMAL,
-        TypeDeCafé.ALLONGE
+        [TypeDeCafé.NORMAL, 1],
+        [TypeDeCafé.ALLONGE, 2]
     ])
-    ("Cas café %s avec vérification de stock d'eau", (type: TypeDeCafé) => {
+    ("Cas café %s avec vérification de stock d'eau", (type: TypeDeCafé, amount: number) => {
         // ETANT DONNE une machine à café avec suffisamment d'eau pour un type de café
         let machineACafé = MachineACaféBuilder.ParDéfaut()
 
-        machineACafé.avecStockEauAjusté(type);
+        machineACafé.avecStockEauAjusté(10);
 
         // QUAND on choisis un type de café
         machineACafé.SimulerSélectionCafé(type)
@@ -118,5 +125,6 @@ describe("MVP", () => {
 
         // ET l'argent est encaissé
         expect(machineACafé.argentEncaisséEnCentimes).toEqual(50);
+        expect(machineACafé.CountWaterStock()).toEqual(10 - amount)
     })
 })
