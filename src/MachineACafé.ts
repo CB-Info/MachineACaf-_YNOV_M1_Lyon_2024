@@ -28,7 +28,10 @@ export class MachineACafé {
         if (this.vérificationStockEau(this.typeDeCafé)) {
             this._hardware.MakeACoffee(this.typeDeCafé)
             this.argentEncaisséEnCentimes += pièce.getMontant()
-            //this._hardware.SetLedState(false);
+
+            if (this._hardware.LedEtat()) {
+                this._hardware.SetLedState(false);
+            }
         } else {
             console.log("Impossible de préparer le café, pas assez d'eau.");
         }
@@ -50,7 +53,6 @@ export class MachineACafé {
             this._hardware.PourWater(1);
             return true;
         } else {
-            this._hardware.SetLedState(false); // S'assurer que la LED est éteinte
             console.log("Pas assez d'eau disponible pour préparer ce type de café.");
             return false;
         }

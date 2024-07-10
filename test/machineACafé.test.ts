@@ -18,6 +18,9 @@ describe("MVP", () => {
         // ALORS il a été demandé au hardware de servir deux cafés
         expect(machineACafé).xCafésSontServis(2);
 
+        // ET la led reste éteinte
+        expect(machineACafé.CountInvocationsLedEtat()).toEqual(0);
+
         // ET l'argent est encaissé
         expect(machineACafé.argentEncaisséEnCentimes).toEqual(100);
     })
@@ -44,6 +47,9 @@ describe("MVP", () => {
         // ALORS il n'a pas été demandé au hardware de servir un café
         expect(machineACafé).aucunCaféNEstServi();
 
+        // ET la led reste éteinte
+        expect(machineACafé.CountInvocationsLedEtat()).toEqual(0);
+
         // ET l'argent n'est pas encaissé
         expect(machineACafé.argentEncaisséEnCentimes).toEqual(0);
     })
@@ -68,6 +74,9 @@ describe("MVP", () => {
 
         // ALORS il a été demandé au hardware de servir un café
         expect(machineACafé).unCaféEstServi();
+
+        // ET la led reste éteinte
+        expect(machineACafé.CountInvocationsLedEtat()).toEqual(0);
 
         // ET l'argent est encaissé
         expect(machineACafé.argentEncaisséEnCentimes).toEqual(pièce.getMontant());
@@ -97,6 +106,9 @@ describe("MVP", () => {
         // ET le café de type allongé a été servi
         expect(machineACafé.typeDeCafé).toEqual(type);
 
+        // ET la led reste éteinte
+        expect(machineACafé.CountInvocationsLedEtat()).toEqual(0);
+
         // ET l'argent est encaissé
         expect(machineACafé.argentEncaisséEnCentimes).toEqual(50);
     })
@@ -122,6 +134,9 @@ describe("MVP", () => {
         // ET le type de café servi correspond à la sélection
         expect(machineACafé.typeDeCafé).toEqual(type);
 
+        // ET la led reste éteinte
+        expect(machineACafé.CountInvocationsLedEtat()).toEqual(0);
+
         // ET l'argent est encaissé
         expect(machineACafé.argentEncaisséEnCentimes).toEqual(50);
         expect(machineACafé.CountWaterStock()).toEqual(10 - amount)
@@ -130,7 +145,6 @@ describe("MVP", () => {
     test("Cas café allongé avec 1 dose d'eau", () => {
         // ETANT DONNE une machine à café avec 1 dose d'eau pour un café allongé
         let machineACafé = MachineACaféBuilder.ParDéfaut()
-
         machineACafé.avecStockEauAjusté(1);
 
         // QUAND on choisis un café allongé
@@ -145,11 +159,14 @@ describe("MVP", () => {
         // ET le type de café servi est un café normal
         expect(machineACafé.typeDeCafé).toEqual(TypeDeCafé.NORMAL);
 
+        // ET la led a été allumé puis éteinte
         expect(machineACafé.CountInvocationsLedEtat()).toEqual(2);
 
         // ET l'argent est encaissé
         expect(machineACafé.argentEncaisséEnCentimes).toEqual(50);
-        expect(machineACafé.CountWaterStock()).toEqual(1 - 1)
+
+        // ET le stock d'eau a été décrémenté
+        expect(machineACafé.CountWaterStock()).toEqual(0)
     })
 
     test("Cas café quand il n'y pas d'eau", () => {
@@ -160,7 +177,6 @@ describe("MVP", () => {
         // QUAND on choisis un type de café
         machineACafé.SimulerSélectionCafé(TypeDeCafé.NORMAL)
 
-
         // ET QUAND on insère 50cts
         machineACafé.SimulerInsertionPièce(Pièce.CinquanteCentimes)
 
@@ -169,6 +185,9 @@ describe("MVP", () => {
 
         // ET le type de café servi correspond à la sélection
         expect(machineACafé.typeDeCafé).toEqual(TypeDeCafé.NORMAL);
+
+        // ET la led reste éteinte
+        expect(machineACafé.CountInvocationsLedEtat()).toEqual(0);
 
         // ET l'argent est encaissé
         expect(machineACafé.argentEncaisséEnCentimes).toEqual(0);
