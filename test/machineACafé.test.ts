@@ -143,7 +143,9 @@ describe("MVP", () => {
         expect(machineACafé).unCaféEstServi();
 
         // ET le type de café servi est un café normal
-        expect(machineACafé.typeDeCafé).not.toEqual(TypeDeCafé.NORMAL);
+        expect(machineACafé.typeDeCafé).toEqual(TypeDeCafé.NORMAL);
+
+        expect(machineACafé.CountInvocationsLedEtat()).toEqual(2);
 
         // ET l'argent est encaissé
         expect(machineACafé.argentEncaisséEnCentimes).toEqual(50);

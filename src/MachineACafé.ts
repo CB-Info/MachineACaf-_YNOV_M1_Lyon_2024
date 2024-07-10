@@ -28,6 +28,7 @@ export class MachineACafé {
         if (this.vérificationStockEau(this.typeDeCafé)) {
             this._hardware.MakeACoffee(this.typeDeCafé)
             this.argentEncaisséEnCentimes += pièce.getMontant()
+            //this._hardware.SetLedState(false);
         } else {
             console.log("Impossible de préparer le café, pas assez d'eau.");
         }
@@ -39,6 +40,19 @@ export class MachineACafé {
 
     private vérificationStockEau(type: TypeDeCafé): boolean {
         const waterNeeded = type === TypeDeCafé.NORMAL ? 1 : 2; // 1 dose pour un café normal, 2 pour un allongé
-        return this._hardware.TryPullWater(waterNeeded) && this._hardware.PourWater(waterNeeded);
+        if (this._hardware.TryPullWater(waterNeeded)) {
+            this._hardware.PourWater(waterNeeded);
+            return true;
+        } else if (type === TypeDeCafé.ALLONGE && this._hardware.TryPullWater(1)) {
+            // Activation de la LED pour signaler un changement de type de café
+            this._hardware.SetLedState(true);
+            this.typeDeCafé = TypeDeCafé.NORMAL; // Changement de type de café en normal
+            this._hardware.PourWater(1);
+            return true;
+        } else {
+            this._hardware.SetLedState(false); // S'assurer que la LED est éteinte
+            console.log("Pas assez d'eau disponible pour préparer ce type de café.");
+            return false;
+        }
     }
 }

@@ -15,6 +15,9 @@ export interface BrewerInterface {
      */
     MakeACoffee(type: TypeDeCafé): boolean
 
+    SetLedState(state: boolean): void;
+    LedEtat(): boolean;
+
     /**
      * Enregistre un callback, qui sera appelé lors de l'insertion d'une pièce reconnue valide
      * @param callback prend un unique paramètre où sera injecté la valeur de la pièce détectée

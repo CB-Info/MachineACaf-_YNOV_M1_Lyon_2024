@@ -6,6 +6,7 @@ import { TypeDeCafé } from "../../src/TypeDeCafé";
 export interface HardwareFakeInterface extends HardwareInterface {
     SimulerInsertionPièce(pièce: Pièce): void;
     CountInvocationsMakeACoffee(): number;
+    CountInvocationsLedEtat(): number;
     SimulerSélectionCafé(type: TypeDeCafé): void;
     avecStockEauAjusté(amount: number): void;
     TryPullWater(amount: number): boolean;
@@ -19,6 +20,18 @@ export class HardwareFake extends HardwareDummy {
     private _typeCoffeeCallback: (type: TypeDeCafé) => void = () => {}
     private _invocationsMakeACoffee: number = 0;
     private _waterStock = 0;
+
+    private ledState = false;
+    private _invocationsLedEtat: number = 0;
+
+    SetLedState(state: boolean): void {
+        this._invocationsLedEtat ++
+        this.ledState = state;
+    }
+
+    LedEtat(): boolean {
+        return this.ledState;
+    }
 
     TryPullWater(amount: number): boolean {
         if (this._waterStock >= amount) {
@@ -68,6 +81,10 @@ export class HardwareFake extends HardwareDummy {
 
     public CountInvocationsMakeACoffee() : number {
         return this._invocationsMakeACoffee;
+    }
+
+    public CountInvocationsLedEtat() : number {
+        return this._invocationsLedEtat;
     }
 
     public CountWaterStock(): number {

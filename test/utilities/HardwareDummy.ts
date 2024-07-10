@@ -34,6 +34,9 @@ export class HardwareDummy implements HardwareFakeInterface {
     CountInvocationsMakeACoffee(): number {
         throw new Error("Method not implemented.");
     }
+    CountInvocationsLedEtat(): number {
+        throw new Error("Method not implemented.");
+    }
     RegisterMoneyInsertedCallback(callback: (coinValue: CoinCodes) => void): void {
         throw new Error("Method not implemented.");
     }
@@ -72,5 +75,11 @@ export class HardwareDummy implements HardwareFakeInterface {
     }
     VérifierStockEau(type: TypeDeCafé): boolean {
         return true
+    }
+    SetLedState(state: boolean): void {
+        throw new Error("Method not implemented.");
+    }
+    LedEtat(): boolean {
+        throw new Error("Method not implemented.");
     }
 }

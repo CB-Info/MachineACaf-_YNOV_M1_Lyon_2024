@@ -28,6 +28,10 @@ export class MachineACaféHarness extends MachineACafé {
         return this.hardware.CountInvocationsMakeACoffee();
     }
 
+    public CountInvocationsLedEtat() {
+        return this.hardware.CountInvocationsLedEtat();
+    }
+
     public CountWaterStock(): number {
         return this.hardware.CountWaterStock();
     }
@@ -38,5 +42,13 @@ export class MachineACaféHarness extends MachineACafé {
 
     public PourWater(amount: number) {
         this.hardware.PourWater(amount);
+    }
+    
+    public SetLedState(state: boolean): void {
+        this.hardware.SetLedState(state);
+    }
+
+    public LedEtat(): boolean {
+        return this.hardware.LedEtat()
     }
 }
