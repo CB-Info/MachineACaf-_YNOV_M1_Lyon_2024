@@ -43,9 +43,9 @@ export class MachineACaféHarness extends MachineACafé {
     public PourWater(amount: number) {
         this.hardware.PourWater(amount);
     }
-    
-    public SetLedState(state: boolean): void {
-        this.hardware.SetLedState(state);
+
+    public SetLungoWarningLedState(state: boolean): void {
+        this.hardware.SetLungoWarningLedState(state);
     }
 
     public LedEtat(): boolean {

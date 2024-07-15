@@ -19,12 +19,12 @@ export class HardwareFake extends HardwareDummy {
     private _moneyInsertedCallback: (coinValue: number) => void = () => {};
     private _typeCoffeeCallback: (type: TypeDeCafé) => void = () => {}
     private _invocationsMakeACoffee: number = 0;
-    private _waterStock = 0;
+    private _waterStock = 10;
 
     private ledState = false;
     private _invocationsLedEtat: number = 0;
 
-    SetLedState(state: boolean): void {
+    SetLungoWarningLedState(state: boolean): void {
         this._invocationsLedEtat ++
         this.ledState = state;
     }

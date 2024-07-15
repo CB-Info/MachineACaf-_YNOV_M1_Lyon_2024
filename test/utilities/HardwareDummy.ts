@@ -76,9 +76,6 @@ export class HardwareDummy implements HardwareFakeInterface {
     VérifierStockEau(type: TypeDeCafé): boolean {
         return true
     }
-    SetLedState(state: boolean): void {
-        throw new Error("Method not implemented.");
-    }
     LedEtat(): boolean {
         throw new Error("Method not implemented.");
     }

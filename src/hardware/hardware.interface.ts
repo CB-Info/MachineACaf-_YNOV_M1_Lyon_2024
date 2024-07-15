@@ -15,7 +15,6 @@ export interface BrewerInterface {
      */
     MakeACoffee(type: TypeDeCafé): boolean
 
-    SetLedState(state: boolean): void;
     LedEtat(): boolean;
 
     /**
